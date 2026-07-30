@@ -1,0 +1,9 @@
+{
+  "name": "greet",
+  "steps": [
+    { "id": "vars",  "plugin": "transform.set", "params": { "values": { "who": "World" } } },
+    { "id": "write", "plugin": "file.write",    "params": { "path": "greet.txt", "content": "Hello ${vars.who}" } },
+    { "id": "read",  "plugin": "file.read",     "params": { "path": "greet.txt" } },
+    { "id": "check", "plugin": "transform.validate", "params": { "value": "${read.content}", "min_length": 3 } }
+  ]
+}
