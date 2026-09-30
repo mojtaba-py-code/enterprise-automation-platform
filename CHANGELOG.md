@@ -4,6 +4,13 @@ All notable changes are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Security
+- Require PyJWT >= 2.14.0. PyJWT 2.13.0 has ten published advisories, among them
+  algorithm confusion and acceptance of malformed signature segments; a
+  range that still allowed it could resolve to it.
+
 ## [1.0.0] - 2026-07-30
 
 ### Added
