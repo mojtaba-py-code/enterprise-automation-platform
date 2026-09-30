@@ -4,18 +4,23 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# The pipeline only reads the checkout; no job needs a write token.
+permissions:
+  contents: read
+
 jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
       - name: Install dependencies
@@ -36,13 +41,14 @@ jobs:
           bandit -q -r app --severity-level medium
       - name: pip-audit (dependency CVEs)
         run: |
-          pip install pip-audit
-          pip-audit --skip-editable
+          # The runner's own setuptools is part of the audited environment.
+          python -m pip install --upgrade setuptools pip-audit
+          pip-audit --skip-editable --progress-spinner off
 
   docker:
     needs: quality
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Build image
         run: docker build -f docker/Dockerfile -t enterprise-automation-platform:ci .
