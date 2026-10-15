@@ -1,6 +1,6 @@
 [project]
 name = "enterprise-automation-platform"
-version = "1.0.0"
+version = "1.0.1"
 description = "A modular, plugin-driven platform for automating business processes — workflows, scheduling, and a REST API + CLI."
 requires-python = ">=3.12"
 readme = "README.md"

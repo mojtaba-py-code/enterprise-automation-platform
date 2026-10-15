@@ -6,6 +6,8 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-15
+
 ### Security
 - Require PyJWT >= 2.14.0. PyJWT 2.13.0 has ten published advisories, among them
   algorithm confusion and acceptance of malformed signature segments; a
